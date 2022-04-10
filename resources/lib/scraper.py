@@ -396,6 +396,8 @@ class MobyGames(Scraper):
             return nplayers_str
 
         match = re.search(r'\d+\\-(\d+)', nplayers_str)
+        if match is None: return constants.DEFAULT_META_NPLAYERS
+
         nplayers_str = match.group(1)
         return nplayers_str
 
