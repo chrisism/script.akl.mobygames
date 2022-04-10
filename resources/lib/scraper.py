@@ -603,7 +603,7 @@ class MobyGames(Scraper):
                      f'Respect the website and wait at least till {wait_till_time}.'
                      'Want to stop scraping now instead?'
                 ]
-                auto_timer_ms = (datetime.now() - wait_till_time).total_seconds() * 1000
+                auto_timer_ms = int((datetime.now() - wait_till_time).total_seconds()) * 1000
                 if not kodi.dialog_yesno_timer('\n'.join(msg), timer_ms=auto_timer_ms):
                     amount_seconds = (datetime.now() - wait_till_time).total_seconds()
                     self._wait_for_API_request(amount_seconds*1000)
@@ -616,7 +616,7 @@ class MobyGames(Scraper):
                     status_dic['dialog'] = kodi.KODI_MESSAGE_CANCEL
                     return None
                 
-            self._handle_error(status_dic, 'HTTP code {} message "{}"'.format(http_code, error_msg))
+            self._handle_error(status_dic, f'HTTP code {http_code} message "{error_msg}"')
             return None
 
         # If page_data_raw is None at this point is because of an exception in net_get_URL()
